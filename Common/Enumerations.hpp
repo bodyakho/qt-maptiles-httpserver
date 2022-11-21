@@ -5,7 +5,8 @@ enum class MapStyle
 {
     NoMap = 0,
     Street = 1,
-    Sat
+    Satellite = 2,
+    Hybrid = 3
 };
 
 enum class CacheFormat

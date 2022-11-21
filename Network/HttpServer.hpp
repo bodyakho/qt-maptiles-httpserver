@@ -1,11 +1,12 @@
 #ifndef HTTPSERVER_HPP
 #define HTTPSERVER_HPP
 
-#include "HttpRouter.hpp"
-
 #include <QAbstractHttpServer>
+#include <QHash>
 
-class HttpRequestRouter;
+class QHttpServerRequest;
+
+class TileSpec;
 
 class HttpServer : public QAbstractHttpServer
 {
@@ -15,17 +16,15 @@ public:
     explicit HttpServer(QObject *parent = nullptr);
     virtual ~HttpServer();
 
-    using Handler = std::function<void(const QHttpServerRequest&, QHttpServerResponder&&)>;
+public slots:
+    void onHandleTileFinished(const QHttpServerRequest &request, QTcpSocket *socket, const QByteArray &tile);
 
-    bool addRoute(const QString &path,
-               const QHttpServerRequest::Methods methods, Handler &&handler);
+signals:
+    bool handleTileRequest(const QHttpServerRequest &request, QTcpSocket *socket);
 
 protected:
     virtual bool handleRequest(const QHttpServerRequest &request, QTcpSocket *socket) override final;
     virtual void missingHandler(const QHttpServerRequest &request, QTcpSocket *socket) override final;
-
-private:
-    HttpRouter *mRouter = nullptr;
 };
 
 #endif // HTTPSERVER_HPP

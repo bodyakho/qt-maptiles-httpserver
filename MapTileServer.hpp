@@ -13,8 +13,6 @@ public:
     explicit MapTileServer(int argc, char *argv[]);
     virtual ~MapTileServer();
 
-    void handler(quint32 z);
-
 private:
     HttpServer *mServer = nullptr;
     FetchingManager *mFetchingManager = nullptr;

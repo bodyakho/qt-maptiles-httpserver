@@ -3,7 +3,9 @@
 
 #include <QObject>
 
-class TileSpec;
+class ITileFetcher;
+class QTcpSocket;
+class QHttpServerRequest;
 
 class FetchingManager : public QObject
 {
@@ -14,10 +16,13 @@ public:
     virtual ~FetchingManager();
 
 public slots:
-    void processTileRequest(const TileSpec& spec);
+    bool onHandleTileRequest(const QHttpServerRequest &request, QTcpSocket *socket);
 
 signals:
-    void tileRequestProcessed(const TileSpec& spec, const QByteArray &tile);
+    void handleTileFinished(const QHttpServerRequest &request, QTcpSocket *socket, const QByteArray &tile);
+
+private:
+    ITileFetcher* mFetcher = nullptr;
 };
 
 #endif // FETCHINGMANAGER_H

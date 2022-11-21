@@ -21,9 +21,8 @@ MapTileServer::MapTileServer(int argc, char *argv[])
 
     mServer = new HttpServer(this);
 
-    mServer->addRoute("/test/<arg>", QHttpServerRequest::Method::Get, [](quint32 z){
-        qInfo() << z;
-    });
+    connect(mServer, &HttpServer::handleTileRequest, mFetchingManager, &FetchingManager::onHandleTileRequest);
+    connect(mFetchingManager, &FetchingManager::handleTileFinished, mServer, &HttpServer::onHandleTileFinished);
 
     initialazeServer();
 }
@@ -31,11 +30,6 @@ MapTileServer::MapTileServer(int argc, char *argv[])
 MapTileServer::~MapTileServer()
 {
 
-}
-
-void MapTileServer::handler(quint32 z)
-{
-    qInfo() << z;
 }
 
 void MapTileServer::initialazeServer()

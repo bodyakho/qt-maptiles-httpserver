@@ -11,6 +11,7 @@ CONFIG -= app_bundle
 HEADERS += \
         Common/Constants.hpp \
         Common/Enumerations.hpp \
+        Common/Helper.hpp \
         Common/Logging.hpp \
         Common/ServerAPI.hpp \
         Core/FetchingManager.hpp \
@@ -20,7 +21,6 @@ HEADERS += \
         Interfaces/ITask.hpp \
         Interfaces/ITileFetcher.hpp \
         MapTileServer.hpp \
-        Network/HttpRouter.hpp \
         Network/HttpServer.hpp \
         Tasks/TileFetchingTask.hpp \
         Types/RouteRule.hpp \
@@ -28,13 +28,13 @@ HEADERS += \
 
 
 SOURCES += \
+        Common/Helper.cpp \
         Common/ServerAPI.cpp \
         Core/FetchingManager.cpp \
         Core/SettingsManager.cpp \
         Core/TaskManager.cpp \
         Fetchers/SqlDBsTileFetcher.cpp \
         MapTileServer.cpp \
-        Network/HttpRouter.cpp \
         Network/HttpServer.cpp \
         Tasks/TileFetchingTask.cpp \
         Types/RouteRule.cpp \
